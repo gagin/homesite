@@ -26,4 +26,12 @@ library(readr)
 
 
 library(ranger)
-m.rb <- ranger(out~.,training[1:1000,200:ncol(training)], num.trees=5)
+m.rb <- ranger(out~.,training[1:1000,200:ncol(training)], num.trees=50, write.forest=TRUE)
+pp<-predict(m.rb,dat=testing)
+confusionMatrix(round(pp$predictions),testing$out)
+#80 %
+
+m.rb <- ranger(out~.,training, num.trees=50, write.forest=TRUE)
+pp<-predict(m.rb,dat=testing)
+confusionMatrix(round(pp$predictions),testing$out)
+
